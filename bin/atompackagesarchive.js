@@ -1,3 +1,8 @@
 #!/usr/bin/env node
 
-module.exports = require("../src/atompackagesarchive.js").run(process.argv.slice(2));
+const app = require('../src/atompackagesarchive.js');
+
+const args = process.argv.slice(2);
+
+module.exports = app
+    .run(args);

@@ -1,27 +1,31 @@
-function parseArgv(rawArg) {
-  // the options will allow for choices of what to backup
 
-  var returnObj = {
-    status: true,
-    backup: '',
-  };
+const { log } = console;
 
-  if (rawArg.length < 1) {
-    console.log('No Arguments passed. Defaulting to ALL');
-    returnObj.backup = "ALL";
-    return returnObj;
-  } else {
 
-    for (var i = 0; i < rawArg.length; i++) {
-      if (rawArg[i].startsWith("--backup")) {
-        var opt = rawArg[i].split("=")[1];
-        returnObj.backup = opt;
-      }
+/*
+ *  Options will allow for choices on what to backup.
+ */
+
+function parseArgv(raw){
+
+    const parsed = {
+        status : true ,
+        backup : 'ALL'
     }
 
-    return returnObj;
-  }
+    if(raw.length < 1){
+        log('No Arguments passed. Defaulting to ALL');
+        return parsed;
+    }
 
+    const backup = raw
+        .find((argument) => argument.startsWith('--backup'));
+        
+    if(backup)
+        parsed.backup = backup.split('=')[1];
+
+    return parsed;
 }
+
 
 module.exports = { parseArgv };
